@@ -570,7 +570,7 @@ div.hfe-nav-menu,
 /* Double Line / Underline / Overline Style */
 
 .hfe-pointer__double-line .menu-item.parent a.hfe-menu-item:before, .hfe-pointer__double-line .menu-item.parent a.hfe-menu-item:after, .hfe-pointer__underline .menu-item.parent a.hfe-menu-item:before, .hfe-pointer__underline .menu-item.parent a.hfe-menu-item:after, .hfe-pointer__overline .menu-item.parent a.hfe-menu-item:before, .hfe-pointer__overline .menu-item.parent a.hfe-menu-item:after {
-    height: 3px;
+    height: 1px;
     width: 100%;
     left: 0;
     background-color: #55595c;
