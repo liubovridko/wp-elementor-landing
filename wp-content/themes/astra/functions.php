@@ -187,3 +187,73 @@ function wpmidia_enqueue_masked_input(){
 wp_enqueue_script('masked-input', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js', array('jquery'));
 }
 
+function tehprokat_register_post_type_equipment(){
+
+
+	$labels = array(
+		'name'                  => esc_html_x( 'Обладнання', 'Post type general name', 'textdomain' ),
+		'singular_name'         => esc_html_x( 'Обладнання', 'Post type singular name', 'textdomain' ),
+		'menu_name'             => esc_html_x( 'Обладнання', 'Admin Menu text', 'textdomain' ),
+		'name_admin_bar'        => esc_html_x( 'Обладнання', 'Add New on Toolbar', 'textdomain' ),
+		'add_new'               => esc_html__( 'Додати нове', 'textdomain' ),
+		'add_new_item'          => esc_html__( 'Додати нову техніку', 'textdomain' ),
+		'new_item'              => esc_html__( 'Нове Обладнання', 'textdomain' ),
+		'edit_item'             => esc_html__( 'Редагувати Обладнання', 'textdomain' ),
+		'view_item'             => esc_html__( 'Дивитись Обладнання', 'textdomain' ),
+		'all_items'             => esc_html__( 'Усе Обладнання', 'textdomain' ),
+		'search_items'          => esc_html__( 'Пошук Обладнання', 'textdomain' ),
+		'parent_item_colon'     => esc_html__( 'Батько Обладнання:', 'tehprokat' ),
+		'not_found'             => esc_html__( 'Не знайдено обладнання.', 'textdomain' ),
+		'not_found_in_trash'    => esc_html__( 'Не знайдено обладнання в мусорі.', 'textdomain' ),
+		'featured_image'        => esc_html_x( 'Обкладинка обладнання', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'textdomain' ),
+		'set_featured_image'    => esc_html_x( 'Встановити обкладинку', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
+		'remove_featured_image' => esc_html_x( 'Видалити обкладинку', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
+		'use_featured_image'    => esc_html_x( 'Використовувати обкладинку', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
+		'archives'              => esc_html_x( 'Архів обладнання', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'textdomain' ),
+		'insert_into_item'      => esc_html_x( 'Вставити в обладнання', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'textdomain' ),
+		'uploaded_to_this_item' => esc_html_x( 'Завантажити до цього обладнання', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'textdomain' ),
+		'filter_items_list'     => esc_html_x( 'Фильтр списку обладнання', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'textdomain' ),
+		'items_list_navigation' => esc_html_x( 'Список обладнання навігація', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'textdomain' ),
+		'items_list'            => esc_html_x( 'Список обладнання', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'textdomain' ),
+	);
+
+	$args =[
+		'label' => esc_html__('Обладнання', 'tehprokat'), //название типа поста, отображаемое в меню
+		'labels'   => $labels,
+         'public' => true, // будет ли отображаться  через интерфейс администратора
+         'show_in_menu' => true , //Где показать тип сообщения в меню администратора
+         'has_archive' => true,
+         'menu_icon' => 'dashicons-editor-removeformatting', //иконка меню
+         'supports' => [              //Основные функции, которые поддерживает тип публикации
+         	'title',
+            'editor', 
+			'thumbnail', 
+			'excerpt',
+			'trackbacks',
+			'custom-fields',
+			'comments', 
+			
+			'page-attributes', 
+			'post-formats'
+         ],
+         'rewrite'     => array( 'slug' => 'oborudovanie' ),
+	];
+	register_post_type('Oborudovanie', $args);
+	
+}
+
+add_action('init', 'tehprokat_register_post_type_equipment');
+
+add_action( 'elementor/widgets/widgets_registered', 'register_custom_widget' );
+function register_custom_widget() {
+	define('__ROOT__', dirname(dirname(__FILE__)));
+
+    require_once( __ROOT__.'\astra\widgets\custom-widget.php' );
+   
+    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Custom_Widget() );
+    
+    if(is_singular()) {
+     require_once( __ROOT__.'\astra\widgets\custom-field-widget.php' );
+    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Custom_Field_Widget() );
+    }
+}
