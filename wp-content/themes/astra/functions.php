@@ -248,10 +248,10 @@ add_action( 'elementor/widgets/widgets_registered', 'register_custom_widget' );
 function register_custom_widget() {
 	define('__ROOT__', dirname(dirname(__FILE__)));
 
-    require_once( __ROOT__.'\astra\widgets\custom-widget.php' );
+    //require_once( __ROOT__.'\astra\widgets\custom-widget.php' );
    
-    \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Custom_Widget() );
-    
+    //\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Custom_Widget() );
+
     if(is_singular()) {
      require_once( __ROOT__.'\astra\widgets\custom-field-widget.php' );
     \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \Custom_Field_Widget() );
